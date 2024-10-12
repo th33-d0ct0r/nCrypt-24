@@ -15,7 +15,7 @@ const useDeviceMotion = () => {
         const { x, y, z } = accelerationIncludingGravity;
   
         const accelerationMagnitude = Math.sqrt(x * x + y * y + z * z);
-        const threshold = 0.5; // Higher threshold to reduce sensitivity
+        const threshold = 3; // Higher threshold to reduce sensitivity
   
         setMotion({ x, y, z });
   
