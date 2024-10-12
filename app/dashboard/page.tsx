@@ -7,40 +7,47 @@ const useDeviceMotion = () => {
     const [motion, setMotion] = useState({ x: 0, y: 0, z: 0 });
     const [isMoving, setIsMoving] = useState(false);
     const [movementHistory, setMovementHistory] = useState([]); // Store past motion values
-  
+    const [prevAcceleration, setPrevAcceleration] = useState({ x: 0, y: 0, z: 0 }); // Previous acceleration values
+
     useEffect(() => {
         //@ts-ignore
-      const handleMotion = (event) => {
-        const { accelerationIncludingGravity } = event;
-        const { x, y, z } = accelerationIncludingGravity;
-  
-        const accelerationMagnitude = Math.sqrt(x * x + y * y + z * z);
-        const threshold = 3; // Higher threshold to reduce sensitivity
-  
-        setMotion({ x, y, z });
-  
-        // Update movement history
-        //@ts-ignore
-        setMovementHistory((prev) => {
-          const newHistory = [...prev, accelerationMagnitude].slice(-10); // Keep last 10 readings
-  
-          // Calculate average movement
-          const averageMovement =
-            newHistory.reduce((sum, val) => sum + val, 0) / newHistory.length;
-  
-          // Set moving state based on average movement
-          setIsMoving(averageMovement > threshold);
-  
-          return newHistory;
-        });
-      };
+        const handleMotion = (event) => {
+          const { accelerationIncludingGravity } = event;
+          const { x, y, z } = accelerationIncludingGravity;
+      
+          // High-pass filter to remove gravity
+          const alpha = 0.8; // Smoothing factor
+          const filteredX = alpha * (prevAcceleration.x + x - prevAcceleration.x);
+          const filteredY = alpha * (prevAcceleration.y + y - prevAcceleration.y);
+          const filteredZ = alpha * (prevAcceleration.z + z - prevAcceleration.z);
+      
+          setPrevAcceleration({ x: filteredX, y: filteredY, z: filteredZ });
+      
+          const accelerationMagnitude = Math.sqrt(filteredX * filteredX + filteredY * filteredY + filteredZ * filteredZ);
+          const threshold = 3; // Higher threshold to reduce sensitivity
+      
+          setMotion({ x: filteredX, y: filteredY, z: filteredZ });
+      
+          //@ts-ignore
+          setMovementHistory((prev) => {
+            const newHistory = [...prev, accelerationMagnitude].slice(-10); // Keep last 10 readings
+      
+            // Calculate average movement
+            const averageMovement = newHistory.reduce((sum, val) => sum + val, 0) / newHistory.length;
+      
+            // Set moving state based on average movement
+            setIsMoving(averageMovement > threshold);
+      
+            return newHistory;
+          });
+        };
   
       window.addEventListener('devicemotion', handleMotion);
   
       return () => {
         window.removeEventListener('devicemotion', handleMotion);
       };
-    }, []);
+    }, [prevAcceleration]);
   
     return { motion, isMoving };
   };
