@@ -3,59 +3,73 @@ import { useUser } from '@clerk/nextjs';
 import { PacmanLoader } from 'react-spinners';
 import { useState, useEffect } from 'react';
 
-const useDeviceMotion = () => {
-    const [motion, setMotion] = useState({ x: 0, y: 0, z: 0 });
-    const [isMoving, setIsMoving] = useState(false);
-    const [movementHistory, setMovementHistory] = useState([]); // Store past motion values
-    const [prevAcceleration, setPrevAcceleration] = useState({ x: 0, y: 0, z: 0 }); // Previous acceleration values
-
-    useEffect(() => {
-        //@ts-ignore
-        const handleMotion = (event) => {
-          const { accelerationIncludingGravity } = event;
-          const { x, y, z } = accelerationIncludingGravity;
-      
-          // High-pass filter to remove gravity
-          const alpha = 0.8; // Smoothing factor
-          const filteredX = alpha * (prevAcceleration.x + x - prevAcceleration.x);
-          const filteredY = alpha * (prevAcceleration.y + y - prevAcceleration.y);
-          const filteredZ = alpha * (prevAcceleration.z + z - prevAcceleration.z);
-      
-          setPrevAcceleration({ x: filteredX, y: filteredY, z: filteredZ });
-      
-          const accelerationMagnitude = Math.sqrt(filteredX * filteredX + filteredY * filteredY + filteredZ * filteredZ);
-          const threshold = 3; // Higher threshold to reduce sensitivity
-      
-          setMotion({ x: filteredX, y: filteredY, z: filteredZ });
-      
-          //@ts-ignore
-          setMovementHistory((prev) => {
-            const newHistory = [...prev, accelerationMagnitude].slice(-10); // Keep last 10 readings
-      
-            // Calculate average movement
-            const averageMovement = newHistory.reduce((sum, val) => sum + val, 0) / newHistory.length;
-      
-            // Set moving state based on average movement
-            setIsMoving(averageMovement > threshold);
-      
-            return newHistory;
-          });
-        };
+interface Position {
+    latitude: number | null;
+    longitude: number | null;
+  }
   
-      window.addEventListener('devicemotion', handleMotion);
+  const useGeolocation = () => {
+    const [position, setPosition] = useState<Position>({ latitude: null, longitude: null });
+    const [isMoving, setIsMoving] = useState<boolean>(false);
+    const [lastPosition, setLastPosition] = useState<Position | null>(null);
+    const movementThreshold = 0.0001; // Adjust based on sensitivity
+  
+    useEffect(() => {
+      const handleSuccess = (pos: GeolocationPosition) => {
+        const { latitude, longitude } = pos.coords;
+        setPosition({ latitude, longitude });
+  
+        if (lastPosition) {
+          const distance = getDistance(
+            //@ts-ignore
+            lastPosition.latitude,
+            lastPosition.longitude,
+            latitude,
+            longitude
+          );
+          setIsMoving(distance > movementThreshold);
+        }
+  
+        setLastPosition({ latitude, longitude });
+      };
+  
+      const handleError = (err: GeolocationPositionError) => {
+        console.error(err);
+      };
+  
+      const watchId = navigator.geolocation.watchPosition(handleSuccess, handleError, {
+        enableHighAccuracy: true,
+        maximumAge: 10000,
+        timeout: 5000,
+      });
   
       return () => {
-        window.removeEventListener('devicemotion', handleMotion);
+        navigator.geolocation.clearWatch(watchId); // Pass the watchId here
       };
-    }, [prevAcceleration]);
+    }, [lastPosition]);
   
-    return { motion, isMoving };
-  };
+    const getDistance = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
+      const R = 6371e3; // meters
+      const φ1 = (lat1 * Math.PI) / 180;
+      const φ2 = (lat2 * Math.PI) / 180;
+      const Δφ = ((lat2 - lat1) * Math.PI) / 180;
+      const Δλ = ((lon2 - lon1) * Math.PI) / 180;
   
+      const a =
+        Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
+        Math.cos(φ1) * Math.cos(φ2) *
+        Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  
+      return R * c; // Distance in meters
+    };
+  
+    return { position, isMoving };
+  };  
   
 
 export default function Dashboard() {
-  const { motion, isMoving } = useDeviceMotion();
+    const { position, isMoving } = useGeolocation();
     const { isLoaded, user } = useUser();
 
     if (!isLoaded) {
@@ -70,10 +84,13 @@ export default function Dashboard() {
         <div className="flex flex-col items-center justify-center min-h-[100vh]">
             <h1 className="text-3xl font-bold mb-2 text-[#FF5631]">Dashboard</h1>
             <p className="text-[#FF5631]">Welcome {user?.username}!</p>
-            <h1>Device Motion</h1>
-            <p>X: {motion?.x ? motion.x.toFixed(2) : '0.00'}</p>
-            <p>Y: {motion?.y ? motion.y.toFixed(2) : '0.00'}</p>
-            <p>Z: {motion?.z ? motion.z.toFixed(2) : '0.00'}</p>
+            <h1>GPS Movement Detection</h1>
+            <p>
+                Latitude: {position.latitude !== null ? position.latitude.toFixed(6) : 'N/A'}
+            </p>
+            <p>
+                Longitude: {position.longitude !== null ? position.longitude.toFixed(6) : 'N/A'}
+            </p>
             <h2>{isMoving ? 'Person is moving' : 'Person is stationary'}</h2>
         </div>
     );
