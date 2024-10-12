@@ -5,8 +5,8 @@ import { useState, useEffect } from 'react';
 
 const useDeviceMotion = () => {
     const [motion, setMotion] = useState({ x: 0, y: 0, z: 0 });
-    const [isWalking, setIsWalking] = useState(false);
-    const [previousTimestamp, setPreviousTimestamp] = useState(Date.now());
+    const [isMoving, setIsMoving] = useState(false);
+    const [movementHistory, setMovementHistory] = useState([]); // Store past motion values
   
     useEffect(() => {
         //@ts-ignore
@@ -14,20 +14,25 @@ const useDeviceMotion = () => {
         const { accelerationIncludingGravity } = event;
         const { x, y, z } = accelerationIncludingGravity;
   
-        const currentTimestamp = Date.now();
-        const timeDiff = currentTimestamp - previousTimestamp;
-        setPreviousTimestamp(currentTimestamp);
-  
-        const threshold = 0.2; // Adjust this threshold based on sensitivity
         const accelerationMagnitude = Math.sqrt(x * x + y * y + z * z);
-  
-        if (accelerationMagnitude > threshold) {
-          setIsWalking(true);
-        } else {
-          setIsWalking(false);
-        }
+        const threshold = 0.5; // Higher threshold to reduce sensitivity
   
         setMotion({ x, y, z });
+  
+        // Update movement history
+        //@ts-ignore
+        setMovementHistory((prev) => {
+          const newHistory = [...prev, accelerationMagnitude].slice(-10); // Keep last 10 readings
+  
+          // Calculate average movement
+          const averageMovement =
+            newHistory.reduce((sum, val) => sum + val, 0) / newHistory.length;
+  
+          // Set moving state based on average movement
+          setIsMoving(averageMovement > threshold);
+  
+          return newHistory;
+        });
       };
   
       window.addEventListener('devicemotion', handleMotion);
@@ -35,14 +40,15 @@ const useDeviceMotion = () => {
       return () => {
         window.removeEventListener('devicemotion', handleMotion);
       };
-    }, [previousTimestamp]);
+    }, []);
   
-    return { motion, isWalking };
+    return { motion, isMoving };
   };
+  
   
 
 export default function Dashboard() {
-    const { motion, isWalking } = useDeviceMotion();
+  const { motion, isMoving } = useDeviceMotion();
     const { isLoaded, user } = useUser();
 
     if (!isLoaded) {
@@ -61,7 +67,7 @@ export default function Dashboard() {
             <p>X: {motion?.x ? motion.x.toFixed(2) : '0.00'}</p>
             <p>Y: {motion?.y ? motion.y.toFixed(2) : '0.00'}</p>
             <p>Z: {motion?.z ? motion.z.toFixed(2) : '0.00'}</p>
-            <h2>{isWalking ? 'Person is walking' : 'Person is stationary'}</h2>
+            <h2>{isMoving ? 'Person is moving' : 'Person is stationary'}</h2>
         </div>
     );
 }
