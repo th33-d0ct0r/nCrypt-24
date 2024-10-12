@@ -5,22 +5,29 @@ import { useState, useEffect } from 'react';
 
 const useDeviceMotion = () => {
     const [motion, setMotion] = useState({ x: 0, y: 0, z: 0 });
-    const [isMoving, setIsMoving] = useState(false);
+    const [isWalking, setIsWalking] = useState(false);
+    const [previousTimestamp, setPreviousTimestamp] = useState(Date.now());
   
     useEffect(() => {
-    //@ts-ignore
+        //@ts-ignore
       const handleMotion = (event) => {
         const { accelerationIncludingGravity } = event;
         const { x, y, z } = accelerationIncludingGravity;
   
-        setMotion({ x, y, z });
+        const currentTimestamp = Date.now();
+        const timeDiff = currentTimestamp - previousTimestamp;
+        setPreviousTimestamp(currentTimestamp);
   
-        const threshold = 0.1; // Adjust based on sensitivity
-        if (Math.abs(x) > threshold || Math.abs(y) > threshold || Math.abs(z) > threshold) {
-          setIsMoving(true);
+        const threshold = 0.2; // Adjust this threshold based on sensitivity
+        const accelerationMagnitude = Math.sqrt(x * x + y * y + z * z);
+  
+        if (accelerationMagnitude > threshold) {
+          setIsWalking(true);
         } else {
-          setIsMoving(false);
+          setIsWalking(false);
         }
+  
+        setMotion({ x, y, z });
       };
   
       window.addEventListener('devicemotion', handleMotion);
@@ -28,13 +35,14 @@ const useDeviceMotion = () => {
       return () => {
         window.removeEventListener('devicemotion', handleMotion);
       };
-    }, []);
+    }, [previousTimestamp]);
   
-    return { motion, isMoving };
+    return { motion, isWalking };
   };
+  
 
 export default function Dashboard() {
-    const { motion, isMoving } = useDeviceMotion();
+    const { motion, isWalking } = useDeviceMotion();
     const { isLoaded, user } = useUser();
 
     if (!isLoaded) {
@@ -53,7 +61,7 @@ export default function Dashboard() {
             <p>X: {motion?.x ? motion.x.toFixed(2) : '0.00'}</p>
             <p>Y: {motion?.y ? motion.y.toFixed(2) : '0.00'}</p>
             <p>Z: {motion?.z ? motion.z.toFixed(2) : '0.00'}</p>
-            <h2>{isMoving ? 'Device is in motion' : 'Device is stationary'}</h2>
+            <h2>{isWalking ? 'Person is walking' : 'Person is stationary'}</h2>
         </div>
     );
 }
