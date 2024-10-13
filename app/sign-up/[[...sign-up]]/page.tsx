@@ -90,10 +90,10 @@ export default function Page() {
   if (verifying) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[100vh]">
-            <h1 className="text-3xl font-bold mb-9 text-[#FF5631]">Verify your email</h1>
+            <h1 className="text-3xl font-bold mb-9 text-[#651DFF]">Verify your email</h1>
             <form onSubmit={handleVerify} className="flex flex-col space-y-4">
           <Input name="Enter verification code" value={code} callback={(e) => setCode(e.target.value)} />
-          <button type="submit" className="bg-[#FF5631] text-white p-2 rounded-md">Verify</button>
+          <button type="submit" className="bg-[#651DFF] text-white p-2 rounded-md">Verify</button>
           </form>
       </div>
     )
@@ -102,15 +102,15 @@ export default function Page() {
   return (
     <>
       <div className="flex flex-col items-center justify-center min-h-[100vh]">
-            <h1 className="text-3xl font-bold mb-2 text-[#FF5631]">Register</h1>
+            <h1 className="text-3xl font-medium mb-10 text-[#fff]">Register</h1>
             <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
                 <Input name="First Name" value={fName} callback={(e) => setFName(e.target.value)} />
                 <Input name="Last Name" value={lName} callback={(e) => setLName(e.target.value)} />
-                <Input name="email" value={emailAddress} callback={(e) => setEmailAddress(e.target.value)} />
-                <Input name="password" value={password} callback={(e) => setPassword(e.target.value)} />
-                <button type="submit" className="bg-[#FF5631] text-white p-2 rounded-md">Register</button>
+                <Input name="Your email" value={emailAddress} callback={(e) => setEmailAddress(e.target.value)} />
+                <Input name="Your password" value={password} callback={(e) => setPassword(e.target.value)} />
+                <button type="submit" className="bg-[#651DFF] text-white p-2 rounded-full text-xl h-[7vh]">Register</button>
                 {error && <p className="text-red-500">{error}</p>}
-                <p>Already have an account? <Link className="font-bold text-[#FF5631]" href={"/sign-in"}>Login</Link></p>
+                <p>Already have an account? <Link className="font-bold text-[#651DFF]" href={"/sign-in"}>Login</Link></p>
             </form>
         </div>
     </>

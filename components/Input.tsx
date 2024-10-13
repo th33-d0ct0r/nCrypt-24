@@ -11,9 +11,8 @@ type InputProps = {
 export default function Input(props: InputProps) {
     return (
         <>
-            <label htmlFor={props.name} className="capitalize">{props.name}</label>
             <input value={props.value} type={props.name} name={props.name} id={props.name} placeholder={props.name}
-                   className={`border-2 border-gray-300 rounded-md p-2 bg-transparent outline-0 ${props.classes}`} onChange={props.callback}/>
+                   className={`rounded-full w-full h-[6vh] px-7 bg-[#202020] outline-0 text-sm placeholder:font-light placeholder:text-[#8F8F8F] ${props.classes}`} onChange={props.callback}/>
         </>
     );
 }
