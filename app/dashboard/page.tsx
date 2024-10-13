@@ -29,7 +29,9 @@ export default function Dashboard() {
             body: JSON.stringify({ email: user?.primaryEmailAddress?.emailAddress }),
         }).then((res) => res.json())
         .then((data) => {
+            console.log(data)
             if (data.mongoUser) {
+                setMongoUserLoading(false);
                 setMongoUser(data.mongoUser);
             } else {
                 notyf.error('An error occured while fetching user.');
@@ -43,7 +45,7 @@ export default function Dashboard() {
         return router.push('/sign-in');
     }
 
-    if (!isLoaded || !mongoUserLoading) {
+    if (!isLoaded || mongoUserLoading) {
         return (
             <div className="flex flex-col w-[100%] h-[100vh] items-center justify-center">
                 <PacmanLoader className="justify-center items-center" color='#651DFF' />
@@ -54,8 +56,8 @@ export default function Dashboard() {
     return (
         <div className="flex flex-col items-center p-[10vw] min-h-[100vh]">
             <div className="flex flex-col w-[100%] items-start">
-                <h1 className="text-[#fff] mt-[7vh] mb-0 font-semibold text-2xl">Hello {mongoUser?.name?.split(' ')[0]}!</h1>
-                <p className='text-sm'>Register your team for the event</p>
+                <h1 className="text-[#fff] mt-[7vh] mb-0 font-semibold text-2xl">Hello {mongoUser?.name?.split(' ')[0]} 👋!</h1>
+                <p className='text-sm'>Register your team for the event 😋</p>
             </div>
 
             <img src="/illus.png" className="w-[100%] mt-[5vh]" alt="" />
@@ -64,7 +66,7 @@ export default function Dashboard() {
                 Welcome to Exogenesis 2024, where tech meets entertainment in an immersive experience across two dynamic venues. Enjoy seamless digital access, interactive activities, exclusive tech innovations, live concerts, gaming booths, AR adventures, and smart payment systems. Dive into the future of creativity and technology!
             </p>
 
-            <button className="bg-[#651DFF] w-[100%] mt-[3vh] text-white p-2 rounded-full text-xl h-[7vh]">Register</button>
+            <button className="bg-[#651DFF] w-[100%] mt-[3vh] text-white p-2 rounded-full text-xl h-[7vh] mb-5">Register</button>
         </div>
     );
 }
