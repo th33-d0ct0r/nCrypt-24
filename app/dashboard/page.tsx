@@ -1,10 +1,17 @@
 'use client'
 import { useUser } from '@clerk/nextjs';
 import { PacmanLoader } from 'react-spinners';
+import { useRouter } from 'next/navigation'
 
 
 export default function Dashboard() {
     const { isLoaded, user } = useUser();
+    const router = useRouter()
+
+
+    if (!user) {
+        return router.push('/sign-in');
+    }
 
     if (!isLoaded) {
         return (

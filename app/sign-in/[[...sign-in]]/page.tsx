@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 import Input from '@/components/Input'
 import Link from 'next/link'
 import { PacmanLoader } from 'react-spinners'
+import { useUser } from '@clerk/nextjs';
 
 export default function SignInForm() {
   const { isLoaded, signIn, setActive } = useSignIn()
@@ -14,6 +15,11 @@ export default function SignInForm() {
   const router = useRouter()
   const [error, setError] = React.useState<string | null>(null);
   const [loading, setLoading] = React.useState(false);
+  const { user } = useUser();
+
+  if (user) {
+    return router.push('/dashboard')
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -23,8 +29,8 @@ export default function SignInForm() {
     try {
       //@ts-ignore
       const signInAttempt = await signIn.create({
-        identifier: email,
-        password,
+        identifier: email.trim(),
+        password: password.trim(),
       })
 
       if (signInAttempt.status === 'complete') {
@@ -118,10 +124,12 @@ export default function SignInForm() {
                 <Input
                     name="Enter your email"
                     value={email}
+                    type={"email"}
                     callback={(e) => setEmail(e.target.value)}
                 />
                 <Input
                     name="Enter your password"
+                    type={"password"}
                     value={password}
                     callback={(e) => setPassword(e.target.value)}
                 />

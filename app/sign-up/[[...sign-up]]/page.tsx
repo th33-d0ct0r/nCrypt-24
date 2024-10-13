@@ -5,6 +5,7 @@ import { useSignUp } from '@clerk/nextjs'
 import { useRouter } from 'next/navigation'
 import Input from '@/components/Input'
 import Link from 'next/link'
+import { useUser } from '@clerk/nextjs';
 
 export default function Page() {
   const { isLoaded, signUp, setActive } = useSignUp()
@@ -16,6 +17,11 @@ export default function Page() {
   const [verifying, setVerifying] = React.useState(false)
   const [code, setCode] = React.useState('')
   const router = useRouter()
+  const { user } = useUser();
+
+  if (user) {
+    return router.push('/dashboard')
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -27,7 +33,7 @@ export default function Page() {
       await signUp.create({
         emailAddress,
         password,
-        username: fName + lName,
+        username: fName.trim() + lName.trim(),
       })
 
       await signUp.prepareEmailAddressVerification({
@@ -60,9 +66,9 @@ export default function Page() {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                email: emailAddress,
+                email: emailAddress.trim(),
                 clerkId: signUpAttempt.createdUserId,
-                name: fName + ' ' + lName,
+                name: fName.trim() + ' ' + lName.trim(),
             }),
         })
         .then(response => {
@@ -90,10 +96,10 @@ export default function Page() {
   if (verifying) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[100vh]">
-            <h1 className="text-3xl font-bold mb-9 text-[#651DFF]">Verify your email</h1>
+            <h1 className="text-3xl font-bold mb-9 text-[#fff]">Verify your email</h1>
             <form onSubmit={handleVerify} className="flex flex-col space-y-4">
           <Input name="Enter verification code" value={code} callback={(e) => setCode(e.target.value)} />
-          <button type="submit" className="bg-[#651DFF] text-white p-2 rounded-md">Verify</button>
+          <button type="submit" className="bg-[#651DFF] text-white p-2 rounded-full text-xl h-[7vh]">Verify</button>
           </form>
       </div>
     )
@@ -104,12 +110,12 @@ export default function Page() {
       <div className="flex flex-col items-center justify-center min-h-[100vh]">
             <h1 className="text-3xl font-medium mb-10 text-[#fff]">Register</h1>
             <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
-                <Input name="First Name" value={fName} callback={(e) => setFName(e.target.value)} />
-                <Input name="Last Name" value={lName} callback={(e) => setLName(e.target.value)} />
-                <Input name="Your email" value={emailAddress} callback={(e) => setEmailAddress(e.target.value)} />
-                <Input name="Your password" value={password} callback={(e) => setPassword(e.target.value)} />
+                <Input type="text" name="First Name" value={fName} callback={(e) => setFName(e.target.value)} />
+                <Input type="text" name="Last Name" value={lName} callback={(e) => setLName(e.target.value)} />
+                <Input type="email" name="Your email" value={emailAddress} callback={(e) => setEmailAddress(e.target.value)} />
+                <Input type="password" name="Your password" value={password} callback={(e) => setPassword(e.target.value)} />
                 <button type="submit" className="bg-[#651DFF] text-white p-2 rounded-full text-xl h-[7vh]">Register</button>
-                {error && <p className="text-red-500">{error}</p>}
+                {error && <p className="text-red-500 w-[80vw]">{error}</p>}
                 <p>Already have an account? <Link className="font-bold text-[#651DFF]" href={"/sign-in"}>Login</Link></p>
             </form>
         </div>
