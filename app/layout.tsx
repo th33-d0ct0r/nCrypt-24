@@ -5,6 +5,7 @@ import { NextFont } from "next/dist/compiled/@next/font";
 import { ClerkProvider } from "@clerk/nextjs";
 import { isMobile } from "../utils/isMobile";
 import { headers } from "next/headers";
+import Navbar from "@/components/Navbar";
 
 export const metadata: Metadata = {
   title: "nCrypt",
@@ -41,6 +42,7 @@ export default function RootLayout({
           className={`${montserrat.className} antialiased`}
           >
           {children}
+          <Navbar />
         </body>
       </html>
     </ClerkProvider>
