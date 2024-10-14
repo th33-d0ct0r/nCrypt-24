@@ -2,8 +2,10 @@
 import { useUser } from '@clerk/nextjs';
 import { PacmanLoader } from 'react-spinners';
 import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Notyf } from 'notyf';
+import Button from '@/components/Button';
+import BtnLink from '@/components/BtnLink'
 
 interface MongoUser {
     email: string;
@@ -49,9 +51,10 @@ export default function MapPage() {
             </div>
         );
     }
-    console.log('User', user)
-
     return (
-        <img src="map.png" />
+        <div className="w-[100vw] h-[100vh] flex items-center justify-center">
+            <BtnLink href="/map/scan">Scan Live Location</BtnLink>
+        </div>
+        // <img src="map.png" className='w-[100vw] h-[100vh] object-contain' />
     );
 }
