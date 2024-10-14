@@ -1,4 +1,13 @@
+"use client"
+import { usePathname } from "next/navigation";
+
 export default function Navbar() {
+    const pathname = usePathname()
+    console.log(pathname)
+    const nonNavPaths = ['/sign-in', '/sign-up', '/map']
+    if (nonNavPaths.includes(pathname)) {
+        return
+    }
     return (
         <div className="flex flex-row ml-[10vw] bg-[#19171D] fixed bottom-[5vh] rounded-full w-[80vw] h-[8vh] items-center justify-between px-6">
             <img className="w-[27px]" src="/nav_icon_1.png" alt="" />
