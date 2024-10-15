@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^5.7.2",
+    "axios": "^1.7.7",
     "dynamsoft-camera-enhancer": "^3.3.10",
     "mongoose": "^8.7.1",
     "next": "14.2.15",
