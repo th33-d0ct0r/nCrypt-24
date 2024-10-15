@@ -16,10 +16,10 @@ export default function Home() {
       );
   }
 
-  // if (user) {
-  //   return router.push('/dashboard')
-  // }
+  if (user) {
+    return router.push('/dashboard')
+  }
 
-  // return router.push('/sign-in')
+  return router.push('/sign-in')
 
 }

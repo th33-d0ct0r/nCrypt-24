@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 export default function Navbar() {
     const pathname = usePathname()
     console.log(pathname)
-    const nonNavPaths = ['/sign-in', '/sign-up']
+    const nonNavPaths = ['/sign-in', '/sign-up', '/map/view']
     if (nonNavPaths.includes(pathname)) {
         return
     }
