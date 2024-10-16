@@ -66,7 +66,7 @@ export default function Dashboard() {
                 Welcome to Exogenesis 2024, where tech meets entertainment in an immersive experience across two dynamic venues. Enjoy seamless digital access, interactive activities, exclusive tech innovations, live concerts, gaming booths, AR adventures, and smart payment systems. Dive into the future of creativity and technology!
             </p>
 
-            <button className="bg-[#651DFF] w-[100%] mt-[3vh] text-white p-2 rounded-full text-xl h-[7vh] mb-5">Register</button>
+            <button onClick={() => router.push('/eventReg')} className="bg-[#651DFF] w-[100%] mt-[3vh] text-white p-2 rounded-full text-xl h-[7vh] mb-5">Register</button>
         </div>
     );
 }
