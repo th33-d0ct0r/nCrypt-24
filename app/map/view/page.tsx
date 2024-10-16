@@ -1,12 +1,20 @@
-import React from 'react'
+import TopNav from "@/components/TopNav";
+import React from "react";
 
 const MapView = () => {
   return (
-    <div className="flex items-center w-[100vw] h-[100vh]">
-        <img src="/map.png" className="w-[100vw]" />
-        <img src="/marker.webp" className="h-[10vh] z-10 top-[20vh] left-[20vw] absolute" />
+    <div>
+      <TopNav />
+      <div className="w-[80vw] h-[115vw] overflow-auto rounded-[1.25vw] ml-[10vw]">
+        <div className="min-w-[150vw] min-h-[225vw]">
+          <img src="/map.png" className="min-w-[150vw] min-h-[225vw]"></img>
+        </div>
+      </div>
+      <div className="w-[80vw] ml-[10vw] mt-[4vw]">
+        <p className="text-[#777] text-[3vw]">Find some places to eat</p>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default MapView
+export default MapView;
