@@ -10,6 +10,7 @@ const schoolSchema: Schema = new Schema(
         StudentInchargeName: reqString,
         TeacherInchargeEmail: reqString,
         TeacherInchargeName: reqString,
+        teamCode: reqString,
         team: {
             type: Array,
             required: true,

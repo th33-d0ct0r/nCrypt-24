@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectDb from "@/utils/connectDb";
 import School from "@/models/schoolSchema";
+import User from "@/models/userSchema";
 
 export async function POST(request: NextRequest) {
     try {
         await connectDb();
-
         const {
             schoolName,
             address,
@@ -13,8 +13,18 @@ export async function POST(request: NextRequest) {
             StudentInchargeName,
             TeacherInchargeName,
             TeacherInchargeEmail,
+            teamCode,
             email
         } = await request.json();
+        console.log(teamCode)
+        const existingUser = await User.findOne({ email : email });
+        if (existingUser.schoolId) {
+            return NextResponse.json({ message: "User already registered for school" }, {status: 400});
+        }
+        const existingSchool = await School.findOne({ schoolName : schoolName });
+        if (existingSchool) {
+            return NextResponse.json({ message: "School already exists" }, {status: 400});
+        }
 
         const newSchool = new School({
             schoolName,
@@ -23,10 +33,14 @@ export async function POST(request: NextRequest) {
             StudentInchargeName,
             TeacherInchargeName,
             TeacherInchargeEmail,
+            teamCode: teamCode,
             team: [email],
         });
 
+        console.log(newSchool);
         await newSchool.save();
+
+        await User.updateOne({ email: email }, { schoolId: newSchool._id });
 
         return NextResponse.json({ message: "School created", user: newSchool }, {status: 201});
 

@@ -13,7 +13,8 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ message: "User already exists" }, {status: 400});
         }
 
-        const newUser = new User({ email, clerkId, name });
+        const schoolId = "null";
+        const newUser = new User({ email, clerkId, name, schoolId });
         await newUser.save();
         return NextResponse.json({ message: "User created", user: newUser }, {status: 201});
 

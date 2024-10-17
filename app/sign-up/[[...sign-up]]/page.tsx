@@ -59,8 +59,8 @@ export default function Page() {
 
       if (signUpAttempt.status === 'complete') {
         await setActive({ session: signUpAttempt.createdSessionId })
-
-        fetch('/api/auth/register', {
+        console.log('Bhai yeh kya hai')
+        await fetch('/api/auth/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -79,12 +79,12 @@ export default function Page() {
         })
         .then(data => {
             console.log('Success:', data);
+            router.push('/dashboard')
         })
         .catch(error => {
             console.error('Error:', error);
         });
                 
-        router.push('/dashboard')
       } else {
         console.error(JSON.stringify(signUpAttempt, null, 2))
       }

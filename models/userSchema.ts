@@ -7,6 +7,7 @@ const userSchema: Schema = new Schema(
         name: reqString,
         email: reqString,
         clerkId: reqString,
+        schoolId: reqString,
     },
     { timestamps: true }
 );
