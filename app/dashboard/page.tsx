@@ -10,6 +10,7 @@ interface MongoUser {
   email: string;
   clerkId: string;
   name: string;
+  schoolId: string;
 }
 
 export default function Dashboard() {
@@ -45,6 +46,9 @@ export default function Dashboard() {
 
   if (!user) {
     return router.push("/sign-in");
+  }
+  if (mongoUser.schoolId) {
+    router.push("/dashboard/registered");
   }
 
   if (!isLoaded || mongoUserLoading) {
