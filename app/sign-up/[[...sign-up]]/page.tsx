@@ -109,8 +109,8 @@ export default function Page() {
   return (
     <>
 
-      <img src="./login_blob.png" className="w-[41%] aspect-auto absolute top-[-1vh] left-[-3vh]" alt="" />
-      <img src="./login_blob_2.png" className="w-[44%] aspect-auto absolute bottom-[2vh] right-[-2vh]" alt="" />
+      <img src="./login_blob.png" className="w-[41%] aspect-auto absolute top-[-1vh] left-[-3vh] z-[-10]" alt="" />
+      <img src="./login_blob_2.png" className="w-[44%] aspect-auto absolute bottom-[2vh] right-[-2vh] z-[-10]" alt="" />
       <div className="flex flex-col items-center justify-center min-h-[100vh]">
             <h1 className="text-3xl font-medium mb-10 text-[#fff]">Register</h1>
             <form onSubmit={handleSubmit} className="flex flex-col space-y-4">

@@ -59,9 +59,9 @@ export default function SignInForm() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[100vh]">
-            <img src="./login_blob.png" className="w-[41%] aspect-auto absolute top-[-1vh] left-[-3vh]" alt="" />
+            <img src="./login_blob.png" className="w-[41%] aspect-auto absolute top-[-1vh] left-[-3vh] z-[-10]" alt="" />
 
-            <img src="./login_blob_2.png" className="w-[44%] aspect-auto absolute bottom-[2vh] right-[-2vh]" alt="" />
+            <img src="./login_blob_2.png" className="w-[44%] aspect-auto absolute bottom-[2vh] right-[-2vh] z-[-10]" alt="" />
 
             <h1 className="text-2xl mb-0 font-medium text-[#fff]">Welcome to</h1>
             <svg className="mb-10" width="203" height="44" viewBox="0 0 203 44" fill="none" xmlns="http://www.w3.org/2000/svg">
