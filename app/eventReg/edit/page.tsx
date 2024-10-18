@@ -134,25 +134,28 @@ const Page = () => {
     }
     
   return (
-    <div className="flex flex-col items-center p-[10vw] min-h-[100vh]">
-        <h1 className="self-start text-xl mt-[5vh] font-bold">Edit your team</h1>
+    <>
+        <div className="flex flex-col items-center p-[10vw] min-h-[100vh]">
+            <h1 className="self-start text-xl mt-[5vh] font-bold">Edit your team</h1>
+            <a href='/dashboard' className="self-stretch">Go back</a>
 
-        <Input classes="mt-[3vh]" name='Name of School' value={schoolName} callback={(e) => setSchoolName(e.target.value)} type="text" />
-        <Input classes="mt-[3vh]" name='School Address' value={address} callback={(e) => setAddress(e.target.value)} type="text" />
-        <Input classes="mt-[3vh]" name='Team/Club Name' value={teamName} callback={(e) => setTeamName(e.target.value)} type="text" />
-        <Input classes="mt-[3vh]" name='Teacher Incharge Name' value={TeacherInchargeName} callback={(e) => setTeacherInchargeName(e.target.value)} type="text" />
-        <Input classes="mt-[3vh]" name='Teacher Incharge Email' value={TeacherInchargeEmail} callback={(e) => setTeacherInchargeEmail(e.target.value)} type="text" />
-        <Input classes="mt-[3vh]" name='Student Incharge Name' value={StudentInchargeName} callback={(e) => setStudentInchargeName(e.target.value)} type="text" />
-        {owner ? (
-            <Button classes='mt-[3vh] w-[100%]' onClickEvent={(e) => handleSubmit(e)}>Confirm</Button>
-        ) : 
-        (
-            <div className="">
-                <p className='mt-[2vh]'>You're not the owner of the school so you cannnot edit the details</p>
-                <Button classes='mt-[2vh] mb-[20vh] w-[100%]' onClickEvent={(e) => handleLeaveTeam(e)}>Leave Team</Button>
-            </div>
-        )}
-    </div>
+            <Input classes="mt-[3vh]" name='Name of School' value={schoolName} callback={(e) => setSchoolName(e.target.value)} type="text" />
+            <Input classes="mt-[3vh]" name='School Address' value={address} callback={(e) => setAddress(e.target.value)} type="text" />
+            <Input classes="mt-[3vh]" name='Team/Club Name' value={teamName} callback={(e) => setTeamName(e.target.value)} type="text" />
+            <Input classes="mt-[3vh]" name='Teacher Incharge Name' value={TeacherInchargeName} callback={(e) => setTeacherInchargeName(e.target.value)} type="text" />
+            <Input classes="mt-[3vh]" name='Teacher Incharge Email' value={TeacherInchargeEmail} callback={(e) => setTeacherInchargeEmail(e.target.value)} type="text" />
+            <Input classes="mt-[3vh]" name='Student Incharge Name' value={StudentInchargeName} callback={(e) => setStudentInchargeName(e.target.value)} type="text" />
+            {owner ? (
+                <Button classes='mt-[3vh] w-[100%]' onClickEvent={(e) => handleSubmit(e)}>Confirm</Button>
+            ) : 
+            (
+                <div className="">
+                    <p className='mt-[2vh]'>You're not the owner of the school so you cannnot edit the details</p>
+                    <Button classes='mt-[2vh] mb-[20vh] w-[100%]' onClickEvent={(e) => handleLeaveTeam(e)}>Leave Team</Button>
+                </div>
+            )}
+        </div>
+    </>
   )
 }
 
