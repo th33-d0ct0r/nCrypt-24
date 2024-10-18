@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 import Input from '@/components/Input'
 import Link from 'next/link'
 import { useUser } from '@clerk/nextjs';
+import { RainbowButton } from '@/components/rainbow-button'
 
 export default function Page() {
   const { isLoaded, signUp, setActive } = useSignUp()
@@ -117,8 +118,7 @@ export default function Page() {
                 <Input type="text" name="Last Name" value={lName} callback={(e) => setLName(e.target.value)} />
                 <Input type="email" name="Your email" value={emailAddress} callback={(e) => setEmailAddress(e.target.value)} />
                 <Input type="password" name="Your password" value={password} callback={(e) => setPassword(e.target.value)} />
-                <button type="submit" className="bg-[#651DFF] text-white p-2 rounded-full text-xl h-[7vh]">Register</button>
-                {error && <p className="text-red-500 w-[80vw]">{error}</p>}
+                <RainbowButton height='7vh' classes='rounded-full' type="submit">Register</RainbowButton>                {error && <p className="text-red-500 w-[80vw]">{error}</p>}
                 <p>Already have an account? <Link className="font-bold text-[#651DFF]" href={"/sign-in"}>Login</Link></p>
             </form>
         </div>

@@ -7,6 +7,7 @@ import Input from '@/components/Input'
 import Link from 'next/link'
 import { PacmanLoader } from 'react-spinners'
 import { useUser } from '@clerk/nextjs';
+import { RainbowButton } from '@/components/rainbow-button'
 
 export default function SignInForm() {
   const { isLoaded, signIn, setActive } = useSignIn()
@@ -137,9 +138,7 @@ export default function SignInForm() {
                     value={password}
                     callback={(e) => setPassword(e.target.value)}
                 />
-                <button type="submit" className="bg-[#651DFF] text-white p-2 rounded-full text-xl h-[7vh]">
-                    Login
-                </button>
+                <RainbowButton height='7vh' classes='rounded-full' type="submit">Login</RainbowButton>
                 {error && <p className="text-red-500">{error}</p>}
                 <p>
                     Don&#39;t have an account?
