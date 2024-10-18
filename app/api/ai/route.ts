@@ -11,24 +11,25 @@ export async function POST(request: NextRequest) {
 
         const apiKey = process.env.OPENAI_API_KEY;
 
-        // const response = await axios.post(
-        //     'https://jamsapi.hackclub.dev/openai/chat/completions',
-        //     {
-        //         model: 'gpt-3.5-turbo',
-        //         messages: [
-        //             { role: 'system', content: `You are a friend to the user named ${reqUser.name}.` },
-        //             { role: 'user', content: query }
-        //         ],
-        //     },
-        //     {
-        //         headers: {
-        //             'Authorization': `Bearer ${apiKey}`,
-        //             'Content-Type': 'application/json'
-        //         }
-        //     }
-        // );
+        const response = await axios.post(
+            'https://jamsapi.hackclub.dev/openai/chat/completions',
+            {
+                model: 'gpt-3.5-turbo',
+                messages: [
+                    { role: 'system', content: `You are a friend to the user named ${reqUser.name}.` },
+                    { role: 'user', content: query }
+                ],
+            },
+            {
+                headers: {
+                    'Authorization': `Bearer ${apiKey}`,
+                    'Content-Type': 'application/json'
+                }
+            }
+        );
+        const result = response.data.choices[0].message.content;
 
-        const result = "bhaijaan aap hume achha lagte ho"
+        // const result = "bhaijaan aap hume achha lagte ho"
         return NextResponse.json({ message: result }, {status: 200});
     } catch (e) {
         console.log(e);
