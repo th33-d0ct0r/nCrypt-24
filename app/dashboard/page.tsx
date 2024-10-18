@@ -10,13 +10,14 @@ interface MongoUser {
   email: string;
   clerkId: string;
   name: string;
-  schoolId: string;
+  schoolId :string
 }
 
 export default function Dashboard() {
   const { isLoaded, user } = useUser();
   const router = useRouter();
   const [mongoUser, setMongoUser] = useState({} as MongoUser);
+  const [isReg, setIsReg] = useState(false);
   const [mongoUserLoading, setMongoUserLoading] = useState(true);
   const notyf = new Notyf();
 
@@ -36,6 +37,9 @@ export default function Dashboard() {
         if (data.mongoUser) {
           setMongoUserLoading(false);
           setMongoUser(data.mongoUser);
+          if(mongoUser.schoolId != "null"){
+            setIsReg(true);
+          }
         } else {
           notyf.error("An error occured while fetching user.");
           setMongoUserLoading(false);
@@ -47,8 +51,9 @@ export default function Dashboard() {
   if (isLoaded && !user) {
     return router.push("/sign-in");
   }
-  if (mongoUser.schoolId) {
-    router.push("/dashboard/registered");
+
+  if(isLoaded && isReg) {
+    return router.push("/dashboard/registered");
   }
 
   if (!isLoaded || mongoUserLoading) {
@@ -59,6 +64,7 @@ export default function Dashboard() {
     );
   }
 
+  if(isLoaded && !isReg) {
   return (
     <div className="flex flex-col items-center p-[10vw] min-h-[100vh]">
       <div className="flex flex-col w-[100%] items-start">
@@ -86,4 +92,5 @@ export default function Dashboard() {
       </button>
     </div>
   );
+  }
 }

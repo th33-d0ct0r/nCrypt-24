@@ -5,6 +5,7 @@ import User from "@/models/userSchema";
 
 export async function POST(request: NextRequest) {
     try {
+        console.log('1111')
         await connectDb();
         const {
             schoolName,
@@ -17,8 +18,9 @@ export async function POST(request: NextRequest) {
             email
         } = await request.json();
         console.log(teamCode)
+        console.log('aaaaaaaaaaaaaaaaaaaa'+email)
         const existingUser = await User.findOne({ email : email });
-        if (existingUser.schoolId) {
+        if (existingUser.schoolId != "null") {
             return NextResponse.json({ message: "User already registered for school" }, {status: 400});
         }
         const existingSchool = await School.findOne({ schoolName : schoolName });
@@ -40,7 +42,11 @@ export async function POST(request: NextRequest) {
         console.log(newSchool);
         await newSchool.save();
 
-        await User.updateOne({ email: email }, { schoolId: newSchool._id });
+        await User.updateOne({ email: email }, { 
+            $set:{
+                schoolId: newSchool._id
+            }
+         });
 
         return NextResponse.json({ message: "School created", user: newSchool }, {status: 201});
 
