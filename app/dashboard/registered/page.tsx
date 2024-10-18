@@ -216,11 +216,12 @@ export default function Dashboard() {
           </p>
         </div>
       </div>
-      <img className="w-[90vw] mt-[2vh]" src="/warning.png" alt="" />
+      <img onClick={() => router.push('/calendar')} className="w-[90vw] mt-[2vh]" src="/warning.png" alt="" />
 
-      <div className=""></div>
-      <TwitchEmbed video="1641404836" />
-      <div className="mt-[26vh] mb-[12vh]">
+      <div className="flex flex-col items-center justify-center w-[100vw] h-[30vh] bg-[url('/dashboardBg.png')] mt-[2vh]">
+        <TwitchEmbed  video="1641404836" />
+      </div>
+      <div className="mt-[5vh] mb-[12vh]">
         <h2>Live Events</h2>
         <img src="/valo.svg"></img>
       </div>

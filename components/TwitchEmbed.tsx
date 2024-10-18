@@ -10,8 +10,8 @@ interface TwitchEmbedProps {
 }
 
 const TwitchEmbed: React.FC<TwitchEmbedProps> = ({
-  width = "[100%]",
-  height = "[20vh]",
+  width = "[100vw]",
+  height = "[30vh]",
   channel,
   video,
   collection,
@@ -37,6 +37,7 @@ const TwitchEmbed: React.FC<TwitchEmbedProps> = ({
             parent,
             autoplay: true,
             muted: true,
+            controls: false,
           };
           const player = new (window as any).Twitch.Player("twitch-embed", options);
           player.setVolume(0.5);
@@ -44,6 +45,20 @@ const TwitchEmbed: React.FC<TwitchEmbedProps> = ({
       };
 
       document.body.appendChild(script);
+      const style = document.createElement("style");
+      style.innerHTML = `
+        #twitch-embed .twitch-player-overlay .twitch-player-title,
+        #twitch-embed .twitch-player-overlay .twitch-player-channel .stream-info-card {
+          display: none !important;
+        }
+        iframe {
+          width: 80vw;
+          height: 21vh;
+          border-radius: 10px;
+        }
+      `;
+      document.head.appendChild(style);
+      
     }
 
     return () => {
