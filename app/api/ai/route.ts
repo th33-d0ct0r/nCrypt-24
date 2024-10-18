@@ -9,6 +9,12 @@ export async function POST(request: NextRequest) {
         const { email, query } = await request.json();
         const apiKey = process.env.OPENAI_API_KEY;
 
+        const production = process.env.NODE_ENV === 'production';
+
+        if (!production) {
+            return NextResponse.json({ message: "bhaiya aap hume achhe lgte ho 🥰" }, {status: 200});
+        }
+
         const openAIChatCompletion = async (messages: Array<{ role: string; content: string; }>) => {
       
             try {
