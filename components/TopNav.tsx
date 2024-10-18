@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 
 const TopNav = () => {
   const pathname = usePathname();
-  const nonNavPaths = ["/map/view"];
+  const nonNavPaths = ["/map"];
   if (nonNavPaths.includes(pathname)) return;
   return (
     <div className="flex w-[85vw] justify-between items-center mt-[7.5vw] mb-[8vw] mx-[7.5vw]">
