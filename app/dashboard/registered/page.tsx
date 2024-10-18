@@ -79,7 +79,7 @@ export default function Dashboard() {
       });
   }, [isLoaded, user]);
 
-  if (!user) {
+  if (isLoaded && !user) {
     return router.push("/sign-in");
   }
 
