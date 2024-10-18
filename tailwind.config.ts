@@ -9,8 +9,12 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        "custom-pink": "#EE2A70",
+        "custom-dark": "#881840",
+      },
+      backgroundImage: {
+        "gradient-custom":
+          "linear-gradient(259deg, #EE2A70 27.19%, #881840 96.05%)",
       },
     },
   },
