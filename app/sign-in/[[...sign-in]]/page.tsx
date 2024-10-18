@@ -18,7 +18,7 @@ export default function SignInForm() {
   const [loading, setLoading] = React.useState(false);
   const { user } = useUser();
 
-  if (user) {
+  if (isLoaded && user) {
     return router.push('/dashboard')
   }
 

@@ -50,9 +50,7 @@ const EventsPage = () => {
           setMongoUserLoading(false);
           setMongoUser(data.mongoUser);
         } else {
-          notyf.error("An error occured while fetching user.");
           setMongoUserLoading(false);
-          return router.push("/sign-in");
         }
       });
   }, [isLoaded, user]);

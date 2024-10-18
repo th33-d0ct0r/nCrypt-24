@@ -6,6 +6,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { isMobile } from "../utils/isMobile";
 import { headers } from "next/headers";
 import Navbar from "@/components/Navbar";
+import ClientComponent from "@/components/EnsureAuthWrapper";
 
 export const metadata: Metadata = {
   title: "nCrypt",
@@ -35,8 +36,10 @@ export default function RootLayout({
       </html>
     )
   }
+
   return (
     <ClerkProvider>
+      <ClientComponent />
       <html lang="en">
         <body
           className={`${montserrat.className} antialiased`}

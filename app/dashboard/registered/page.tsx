@@ -51,9 +51,7 @@ export default function Dashboard() {
           setMongoUserLoading(false);
           setMongoUser(data.mongoUser);
         } else {
-          notyf.error("An error occured while fetching user.");
           setMongoUserLoading(false);
-          return router.push("/sign-in");
         }
       });
 
@@ -72,16 +70,10 @@ export default function Dashboard() {
           console.log("this is school", school);
           setMongoSchoolLoading(false);
         } else {
-          notyf.error("An error occured while fetching user.");
           setMongoUserLoading(false);
-          return router.push("/sign-in");
         }
       });
   }, [isLoaded, user]);
-
-  if (isLoaded && !user) {
-    return router.push("/sign-in");
-  }
 
   if (!isLoaded || mongoUserLoading || mongoSchoolLoading) {
     return (
@@ -227,8 +219,7 @@ export default function Dashboard() {
       <img className="w-[90vw] mt-[2vh]" src="/warning.png" alt="" />
 
       <div className=""></div>
-      <TwitchEmbed channel="eggwick" />
-
+      <TwitchEmbed video="1641404836" />
       <div className="mt-[26vh] mb-[12vh]">
         <h2>Live Events</h2>
         <img src="/valo.svg"></img>

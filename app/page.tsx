@@ -16,10 +16,8 @@ export default function Home() {
       );
   }
 
-  if (user) {
+  if (isLoaded && user) {
     return router.push('/dashboard')
   }
-
-  return router.push('/sign-in')
 
 }

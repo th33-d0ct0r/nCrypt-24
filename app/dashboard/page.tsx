@@ -48,10 +48,6 @@ export default function Dashboard() {
       });
   }, [isLoaded, user]);
 
-  if (isLoaded && !user) {
-    return router.push("/sign-in");
-  }
-
   if(isLoaded && isReg) {
     return router.push("/dashboard/registered");
   }
