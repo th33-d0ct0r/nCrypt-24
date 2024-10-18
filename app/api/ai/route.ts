@@ -12,6 +12,7 @@ export async function POST(request: NextRequest) {
         const production = process.env.NODE_ENV === 'production';
 
         if (!production) {
+            console.log("in development mode");
             return NextResponse.json({ message: "bhaiya aap hume achhe lgte ho 🥰" }, {status: 200});
         }
 
