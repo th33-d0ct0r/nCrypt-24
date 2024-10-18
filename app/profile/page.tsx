@@ -1,5 +1,5 @@
 "use client";
-import { useUser } from "@clerk/nextjs";
+import { useUser, useClerk  } from "@clerk/nextjs";
 import { PacmanLoader } from "react-spinners";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -32,6 +32,7 @@ export default function Page() {
   const [mongoSchoolLoading, setMongoSchoolLoading] = useState(true);
   const notyf = new Notyf();
   const [school, setSchool] = useState({} as School);
+  const { signOut } = useClerk()
 
   useEffect(() => {
     if (!isLoaded) return;
@@ -151,7 +152,7 @@ export default function Page() {
           </svg>
           <h1 className="text-[#BCBCBC] text-sm mt-2">Your Team</h1>
         </div>
-        <div className="rounded-lg bg-[#212121] w-[35vw] aspect-square flex flex-col items-center justify-center">
+        <div onClick={() => signOut()} className="rounded-lg bg-[#212121] w-[35vw] aspect-square flex flex-col items-center justify-center">
           <svg
             className="w-[20vw]"
             width="52"
