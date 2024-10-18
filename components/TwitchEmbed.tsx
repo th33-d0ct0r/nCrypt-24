@@ -34,7 +34,7 @@ const TwitchEmbed: React.FC<TwitchEmbedProps> = ({ channel }) => {
     };
   }, [channel]);
 
-  return <div ref={embedRef} style={{ height: "500px", width: "100%" }} />;
+  return <div ref={embedRef} style={{ height: "200px", width: "100%" }} />;
 };
 
 export default TwitchEmbed;

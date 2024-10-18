@@ -228,6 +228,11 @@ export default function Dashboard() {
 
       <div className=""></div>
       <TwitchEmbed channel="eggwick" />
+
+      <div className="mb-[12vh]">
+        <h2>Live Events</h2>
+        <img src="/valo.svg"></img>
+      </div>
     </div>
   );
 }
