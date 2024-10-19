@@ -77,10 +77,6 @@ export default function Page() {
       });
   }, [isLoaded, user]);
 
-  if (isLoaded && !user) {
-    return router.push("/sign-in");
-  }
-
   if (!isLoaded || mongoUserLoading || mongoSchoolLoading) {
     return (
       <div className="flex flex-col w-[100%] h-[100vh] items-center justify-center">
@@ -134,7 +130,7 @@ export default function Page() {
           </svg>
           <h1 className="text-[#BCBCBC] text-sm mt-2">Billing Details</h1>
         </div>
-        <div className="rounded-lg bg-[#212121] w-[35vw] aspect-square flex flex-col items-center justify-center">
+        <div onClick={() => router.push('/team')} className="rounded-lg bg-[#212121] w-[35vw] aspect-square flex flex-col items-center justify-center">
           <svg
             className="w-[20vw]"
             width="52"
