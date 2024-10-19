@@ -37,7 +37,8 @@ export default function Dashboard() {
         if (data.mongoUser) {
           setMongoUserLoading(false);
           setMongoUser(data.mongoUser);
-          if(mongoUser.schoolId != "null"){
+          if(data.mongoUser.schoolId !== "null"){
+            console.log('registered')
             setIsReg(true);
           }
         } else {
