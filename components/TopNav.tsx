@@ -1,8 +1,91 @@
 "use client";
 import React from "react";
 import { usePathname } from "next/navigation";
+import { useUser, useClerk  } from "@clerk/nextjs";
+import { PacmanLoader } from "react-spinners";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { Notyf } from "notyf";
+
+interface School {
+  schoolName: string;
+  address: string;
+  team: string[];
+  StudentInchargeName: string;
+  TeacherInchargeName: string;
+  TeacherInchargeEmail: string;
+  teamName: string;
+  teamCode: string;
+}
+
+interface MongoUser {
+  email: string;
+  clerkId: string;
+  name: string;
+  schoolId: string;
+}
 
 const TopNav = () => {
+  const { isLoaded, user } = useUser();
+  const router = useRouter();
+  const [mongoUser, setMongoUser] = useState({} as MongoUser);
+  const [mongoUserLoading, setMongoUserLoading] = useState(true);
+  const [mongoSchoolLoading, setMongoSchoolLoading] = useState(true);
+  const notyf = new Notyf();
+  const [school, setSchool] = useState({} as School);
+  
+
+  useEffect(() => {
+    if (!isLoaded) return;
+
+    fetch("/api/getUser", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email: user?.primaryEmailAddress?.emailAddress }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.mongoUser) {
+          setMongoUserLoading(false);
+          setMongoUser(data.mongoUser);
+        } else {
+          setMongoUserLoading(false);
+        }
+      });
+
+    fetch("/api/getSchool", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email: user?.primaryEmailAddress?.emailAddress }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.school) {
+          setSchool(data.school);
+          console.log("this is school", school);
+          setMongoSchoolLoading(false);
+        } else {
+          setMongoUserLoading(false);
+          setMongoSchoolLoading(false);
+        }
+      });
+  }, [isLoaded, user]);
+
+  if (!isLoaded || mongoUserLoading || mongoSchoolLoading) {
+    return (
+      <div className="flex flex-col w-[100%] h-[100vh] items-center justify-center">
+        <PacmanLoader className="justify-center items-center" color="#651DFF" />
+      </div>
+    );
+  }
+
+
   const pathname = usePathname();
   const nonNavPaths = ["/map"];
   if (nonNavPaths.includes(pathname)) return;
@@ -14,8 +97,8 @@ const TopNav = () => {
           className="w-[12.5vw] border-solid border-[#611df2] border-x-[4px] border-y-[4px] rounded-[100vw]"
         />
         <div className="ml-[2vw]">
-          <p className="text-[3.75vw] leading-4">Hello Samarth!</p>
-          <p className="text-[2.8vw] leading-4 text-[#ee2a70]">nCrypt</p>
+          <p className="text-[3.75vw] leading-4">Hello {mongoUser.name.split(' ')[0]}!</p>
+          <p className="text-[2.8vw] leading-4 text-[#ee2a70]">{school?.teamName}</p>
         </div>
       </div>
       <svg
