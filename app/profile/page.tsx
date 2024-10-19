@@ -51,7 +51,6 @@ export default function Page() {
           setMongoUserLoading(false);
           setMongoUser(data.mongoUser);
         } else {
-          notyf.error("An error occured while fetching user.");
           setMongoUserLoading(false);
         }
       });
@@ -71,7 +70,6 @@ export default function Page() {
           console.log("this is school", school);
           setMongoSchoolLoading(false);
         } else {
-          notyf.error("An error occured while fetching user.");
           setMongoUserLoading(false);
         }
       });
@@ -94,7 +92,7 @@ export default function Page() {
       <p style={style}>{school.teamName}</p>
 
       <div className="flex mt-[5vh] flex-wrap w-[80%] items-center justify-center gap-2">
-        <div className="rounded-lg bg-[#212121] w-[35vw] aspect-square flex flex-col items-center justify-center">
+        <div onClick={() => notyf.success('Coming Soon...')} className="rounded-lg bg-[#212121] w-[35vw] aspect-square flex flex-col items-center justify-center">
           <svg
             className="w-[20vw]"
             width="52"
@@ -112,7 +110,7 @@ export default function Page() {
           </svg>
           <h1 className="text-[#BCBCBC] text-sm mt-2">Edit Profile</h1>
         </div>
-        <div className="rounded-lg bg-[#212121] w-[35vw] aspect-square flex flex-col items-center justify-center">
+        <div onClick={() => notyf.success('Coming Soon...')} className="rounded-lg bg-[#212121] w-[35vw] aspect-square flex flex-col items-center justify-center">
           <svg
             className="w-[20vw]"
             width="52"

@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react';
 import { Notyf } from 'notyf';
 import TopNav from '@/components/TopNav';
+import "notyf/notyf.min.css";
+
 
 interface MongoUser {
     email: string;

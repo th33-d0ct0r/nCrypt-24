@@ -1,11 +1,3 @@
-// TODO: Add team members to the team array in the School schema
-// TODO: Allow teams to choose members for events
-// i would love syamlal to review this :heart:
-
-
-
-
-
 'use client'
 import Button from '@/components/Button'
 import Input from '@/components/Input'
@@ -14,6 +6,8 @@ import { useUser } from '@clerk/nextjs';
 import { useRouter } from 'next/navigation';
 import { PacmanLoader } from 'react-spinners';
 import { Notyf } from 'notyf';
+import "notyf/notyf.min.css";
+
 
 interface School {
     schoolName: string;

@@ -204,7 +204,7 @@ export default function Dashboard() {
         </defs>
       </svg>
 
-      <div className="relative flex flex-col justify-center w-[100vw]">
+      <div onClick={() => router.push('/billing')} className="relative flex flex-col justify-center w-[100vw]">
         <img className="w-[100vw]" src="/dashCard.png" alt="" />
         <div className="absolute ml-[20vw]">
           <h1 className="text-md">{mongoUser.name.split(" ")[0]}</h1>

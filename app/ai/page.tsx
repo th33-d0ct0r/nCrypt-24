@@ -37,7 +37,7 @@ const AI = () => {
 
     return (
         <div className="flex flex-col items-center p-[8vw] min-h-[100vh]">
-            <img className='mt-[7vh] mb-[3vh] w-[60vw]' src="/aiImage.png" alt="" />
+            <img className='mt-[8vh] mb-[3vh] w-[60vw]' src="/aiImage.png" alt="" />
             <div className="flex flex-col items-center justify-center w-[100%] gap-y-4">
                 <div className="w-[96vw] relative">
                     <img className='w-[100%]' src="/inputBg.png" alt="" />
