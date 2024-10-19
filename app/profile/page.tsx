@@ -93,7 +93,7 @@ export default function Page() {
       <p style={style}>{school.teamName}</p>
 
       <div className="flex mt-[5vh] flex-wrap w-[80%] items-center justify-center gap-2">
-        <div onClick={() => {if (school.teamName) {router.push('/edit')} else {notyf.success('Register for the event to see your team.')}}} className="rounded-lg bg-[#212121] w-[35vw] aspect-square flex flex-col items-center justify-center">
+        <div onClick={() => {if (school.teamName) {router.push('/eventReg/edit')} else {notyf.success('Register for the event to see your team.')}}} className="rounded-lg bg-[#212121] w-[35vw] aspect-square flex flex-col items-center justify-center">
           <svg
             className="w-[20vw]"
             width="52"
