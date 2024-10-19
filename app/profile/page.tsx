@@ -71,6 +71,7 @@ export default function Page() {
           setMongoSchoolLoading(false);
         } else {
           setMongoUserLoading(false);
+          setMongoSchoolLoading(false);
         }
       });
   }, [isLoaded, user]);
@@ -128,7 +129,7 @@ export default function Page() {
           </svg>
           <h1 className="text-[#BCBCBC] text-sm mt-2">Billing Details</h1>
         </div>
-        <div onClick={() => router.push('/team')} className="rounded-lg bg-[#212121] w-[35vw] aspect-square flex flex-col items-center justify-center">
+        <div  onClick={() => {if (school.teamName) {router.push('/team')} else {notyf.success('Register for the event to see your team.')}}} className="rounded-lg bg-[#212121] w-[35vw] aspect-square flex flex-col items-center justify-center">
           <svg
             className="w-[20vw]"
             width="52"
