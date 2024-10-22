@@ -72,7 +72,7 @@ const EventsPage = () => {
             <h1 className="text-2xl font-semibold">Live Events</h1>
             <p className="text-sm">Click to watch</p>
           </div>
-            <img className="w-12" src="/arIcon.png" alt="" />
+            <img onClick={() => router.push('/map/scan')} className="w-12" src="/arIcon.png" alt="" />
         </div>
         
         <div>

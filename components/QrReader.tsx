@@ -13,9 +13,24 @@ const QrReader = (props: QrReaderProps) => {
   const [qrOn, setQrOn] = useState<boolean>(true);
   const [scannedResult, setScannedResult] = useState<string | undefined>("");
 
+  const isValidUrl = (url: string) => {
+    try {
+      new URL(url);
+      return true;
+    } catch (_) {
+      return false;
+    }
+  };
+
   const onScanSuccess = (result: QrScanner.ScanResult) => {
     console.log(result);
-    setScannedResult(result?.data);
+    // setScannedResult(result?.data);
+    const scannedData = result?.data;
+    if (scannedData && isValidUrl(scannedData)) {
+      window.open(scannedData, "_blank");
+    } else {
+      setScannedResult("Your QR code is not a valid URL");
+    }
   };
 
   const onScanFail = (err: string | Error) => {
