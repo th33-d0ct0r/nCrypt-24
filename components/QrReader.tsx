@@ -51,8 +51,8 @@ const QrReader = () => {
   }, [qrOn]);
 
   function changePage() {
-    window.location.href = '/map/view'
-    return ""
+    // window.location.href = '/map/view'
+    // return ""
   }
 
   return (
@@ -61,7 +61,7 @@ const QrReader = () => {
       <div ref={qrBoxEl} className="qr-box">
       </div>
 
-      {scannedResult && changePage()}
+      {scannedResult}
     </div>
   );
 };

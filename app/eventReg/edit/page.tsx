@@ -129,7 +129,7 @@ const Page = () => {
     
   return (
     <>
-        <div className="flex flex-col items-center p-[10vw] min-h-[100vh]">
+        <div className="flex flex-col items-center p-[10vw] min-h-[100vh] animate-fadeIn">
             <h1 className="self-start text-xl mt-[5vh] font-bold">Edit your team</h1>
             <a href='/dashboard' className="self-stretch">Go back</a>
 

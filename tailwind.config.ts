@@ -27,7 +27,8 @@ const config: Config = {
   			sm: 'calc(var(--radius) - 4px)'
   		},
   		animation: {
-  			rainbow: 'rainbow var(--speed, 2s) infinite linear'
+  			rainbow: 'rainbow var(--speed, 2s) infinite linear',
+			fadeIn: 'fadeIn var(--speed, 2s) forwards'
   		},
   		keyframes: {
   			rainbow: {
@@ -37,7 +38,16 @@ const config: Config = {
   				'100%': {
   					'background-position': '200%'
   				}
-  			}
+  			},
+			fadeIn: {
+				'0%': {
+					opacity: '0'
+				},
+				'100%': {
+					opacity: '1'
+				}
+			}
+			
   		}
   	}
   },

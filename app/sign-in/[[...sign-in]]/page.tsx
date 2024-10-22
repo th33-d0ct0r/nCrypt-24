@@ -58,7 +58,7 @@ export default function SignInForm() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[100vh]">
+    <div className="flex flex-col items-center justify-center min-h-[100vh] animate-fadeIn">
             <img src="./login_blob.png" className="w-[41%] aspect-auto absolute top-[-1vh] left-[-3vh] z-[-10]" alt="" />
 
             <img src="./login_blob_2.png" className="w-[44%] aspect-auto absolute bottom-[2vh] right-[-2vh] z-[-10]" alt="" />

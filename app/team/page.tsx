@@ -71,7 +71,7 @@ export default function Page() {
   }
 
   return (
-    <div className="flex flex-col pt-0 p-[10vw] min-h-[100vh]">
+    <div className="flex flex-col pt-0 p-[10vw] min-h-[100vh] animate-fadeIn">
         <h1 className="self-start text-xl mt-[5vh] font-bold">Your Team Members</h1>
         <div className="flex flex-col gap-4 mt-[3vh]">
         {team.map((member, key) => (

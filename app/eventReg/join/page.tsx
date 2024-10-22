@@ -50,7 +50,7 @@ const Page = () => {
     }, [isLoaded, user])
     
   return (
-      <div className="flex flex-col items-center p-[10vw] min-h-[100vh]">
+      <div className="flex flex-col items-center p-[10vw] min-h-[100vh] animate-fadeIn">
         <div className="m-[auto] flex flex-col items-center justify-center w-[100%]">
         <h1 className="text-xl font-bold">Join a team 😋</h1>
             <Input callback={(e) => setTeamCode(e.target.value)} classes='mt-[3vh] w-[100%]' name='Enter team code' />

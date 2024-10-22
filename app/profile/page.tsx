@@ -85,7 +85,7 @@ export default function Page() {
   }
 
   return (
-    <div className="flex flex-col items-center pt-0 py-[10vw] min-h-[100vh]">
+    <div className="flex flex-col items-center pt-0 py-[10vw] min-h-[100vh] animate-fadeIn">
       <img className="w-[100vw]" src="/banner.png" alt="" />
       <h1 className="text-2xl font-bold mt-[-5vh] bg-clip-text">
         {mongoUser.name}

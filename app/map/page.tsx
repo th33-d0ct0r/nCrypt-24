@@ -121,7 +121,7 @@ const MapView = () => {
     <div>
       <TopNav />
       <div
-        className="w-[100vw] overflow-auto rounded-[1.25vw] h-[50vh]"
+        className="w-[100vw] overflow-auto rounded-[1.25vw] h-[50vh] animate-fadeIn"
         id="container"
         onLoad={() => randomMarkerShit()}
       >

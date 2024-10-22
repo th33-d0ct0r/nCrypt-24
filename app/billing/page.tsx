@@ -86,7 +86,7 @@ const Page = () => {
       }    
 
   return (
-    <div className="flex flex-col items-center py-[10vw] min-h-[100vh]">
+    <div className="flex flex-col items-center py-[10vw] min-h-[100vh] animate-fadeIn">
         <TopNav />
         <div className="relative flex flex-col justify-center w-[100vw]">
         <img className="w-[100vw]" src="/dashCard.png" alt="" />

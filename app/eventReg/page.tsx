@@ -39,7 +39,7 @@ const Page = () => {
     }, [isLoaded, user])
     
   return (
-      <div className="flex flex-col items-center p-[10vw] min-h-[100vh]">
+      <div className="flex flex-col items-center p-[10vw] min-h-[100vh] animate-fadeIn">
         <div className="m-[auto] flex flex-col items-center justify-center w-[100%]">
         <h1 className="text-xl font-bold">Register for the Event 😋</h1>
         <p>Either create a team or join one</p>

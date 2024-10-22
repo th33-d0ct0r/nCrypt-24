@@ -83,7 +83,7 @@ export default function Dashboard() {
     );
   }
   return (
-    <div className="flex flex-col items-center py-[10vw] min-h-[100vh]">
+    <div className="flex flex-col items-center py-[10vw] min-h-[100vh] animate-fadeIn">
       <TopNav />
 
       <svg
@@ -219,9 +219,14 @@ export default function Dashboard() {
       <img onClick={() => router.push('/calendar')} className="w-[90vw] mt-[2vh]" src="/warning.png" alt="" />
 
       <div className="flex flex-col items-center justify-center w-[100vw] h-[30vh] bg-[url('/dashboardBg.png')] mt-[2vh]">
+        <div className="flex flex-row gap-x-1 items-start w-[80%]">
+          <img className="w-5" src="/liveIcon.png" alt="" />
+          <p className="text-sm">Live</p>
+        </div>
+
         <TwitchEmbed  video="1641404836" />
       </div>
-      <div className="mt-[5vh] mb-[12vh]">
+      <div className="mt-[3.5vh] mb-[12vh]">
         <h2>Live Events</h2>
         <img src="/valo.svg"></img>
       </div>

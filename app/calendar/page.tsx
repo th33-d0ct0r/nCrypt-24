@@ -53,7 +53,7 @@ export default function MapPage() {
         );
     }
     return (
-        <>
+        <div className='animate-fadeIn'>
             <TopNav />
             <img src="/calendar.svg" alt="" />
             <div>
@@ -62,6 +62,6 @@ export default function MapPage() {
                 <img className='mb-[15vh]' src="/events.svg" alt="" />
             </div>
             
-        </>       
+        </div>     
     );
 }

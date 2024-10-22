@@ -64,11 +64,17 @@ const EventsPage = () => {
   }
 
   return (
-    <div className="mb-[15vh]">
+    <div className="mb-[15vh] animate-fadeIn">
       <TopNav />
       <div className="mx-[12vw]">
-        <h1 className="text-2xl font-semibold">Live Events</h1>
-        <p className="text-sm">Click to watch</p>
+        <div className="flex flex-row items-center justify-between w-[100%]">
+          <div className="flex flex-col">
+            <h1 className="text-2xl font-semibold">Live Events</h1>
+            <p className="text-sm">Click to watch</p>
+          </div>
+            <img className="w-12" src="/arIcon.png" alt="" />
+        </div>
+        
         <div>
           <LiveEvent image="/pitching.png" timeStamp="0:37">
             Creative Event: Pitching

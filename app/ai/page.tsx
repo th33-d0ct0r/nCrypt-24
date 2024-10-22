@@ -36,7 +36,7 @@ const AI = () => {
     }
 
     return (
-        <div className="flex flex-col items-center p-[8vw] min-h-[100vh]">
+        <div className="flex flex-col items-center p-[8vw] min-h-[100vh] animate-fadeIn">
             <img className='mt-[8vh] mb-[3vh] w-[60vw]' src="/aiImage.png" alt="" />
             <div className="flex flex-col items-center justify-center w-[100%] gap-y-4">
                 <div className="w-[96vw] relative">

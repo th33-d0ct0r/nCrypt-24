@@ -63,7 +63,7 @@ export default function Dashboard() {
 
   if(isLoaded && !isReg) {
   return (
-    <div className="flex flex-col items-center p-[10vw] min-h-[100vh]">
+    <div className="flex flex-col items-center p-[10vw] min-h-[100vh] animate-fadeIn">
       <div className="flex flex-col w-[100%] items-start">
         <h1 className="text-[#fff] mt-[7vh] mb-0 font-semibold text-2xl">
           Hello {mongoUser?.name?.split(" ")[0]} 👋!
