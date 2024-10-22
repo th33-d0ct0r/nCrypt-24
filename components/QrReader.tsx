@@ -1,4 +1,3 @@
-"use client"
 import { useEffect, useRef, useState } from "react";
 import QrScanner from "qr-scanner";
 
@@ -6,9 +5,10 @@ interface QrReaderProps {
   classes?: string;
 }
 
-const QrReader = ( props: QrReaderProps ) => {
+const QrReader = (props: QrReaderProps) => {
   const scanner = useRef<QrScanner>();
   const videoEl = useRef<HTMLVideoElement>(null);
+  const canvasEl = useRef<HTMLCanvasElement>(null);
   const qrBoxEl = useRef<HTMLDivElement>(null);
   const [qrOn, setQrOn] = useState<boolean>(true);
   const [scannedResult, setScannedResult] = useState<string | undefined>("");
@@ -28,16 +28,8 @@ const QrReader = ( props: QrReaderProps ) => {
         onDecodeError: onScanFail,
         preferredCamera: "environment",
         highlightScanRegion: true,
-        highlightCodeOutline: true,
-        overlay: qrBoxEl?.current || undefined,
       });
-
-      scanner?.current
-        ?.start()
-        .then(() => setQrOn(true))
-        .catch((err) => {
-          if (err) setQrOn(false);
-        });
+      scanner.current.start();
     }
 
     return () => {
@@ -54,14 +46,24 @@ const QrReader = ( props: QrReaderProps ) => {
       );
   }, [qrOn]);
 
-  function changePage() {
-    // window.location.href = '/map/view'
-    // return ""
-  }
+  useEffect(() => {
+    const drawVideoOnCanvas = () => {
+      if (videoEl.current && canvasEl.current) {
+        const context = canvasEl.current.getContext("2d");
+        if (context) {
+          context.drawImage(videoEl.current, 0, 0, canvasEl.current.width, canvasEl.current.height);
+        }
+      }
+      requestAnimationFrame(drawVideoOnCanvas);
+    };
+
+    drawVideoOnCanvas();
+  }, []);
 
   return (
-    <div className={`qr-reader h-[80vw] ${props.classes}`}>
-      <video ref={videoEl} width={'[80vh]'} className="w-full h-full"></video>
+    <div className={`qr-reader`}>
+      <video ref={videoEl} className="hidden"></video>
+      <canvas ref={canvasEl} className={`${props.classes} w-[80vw] aspect-video`}></canvas>
       <div ref={qrBoxEl} className="qr-box"></div>
 
       {scannedResult && (
