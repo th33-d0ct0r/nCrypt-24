@@ -16,7 +16,8 @@ const config: Config = {
   			'color-2': 'hsl(var(--color-2))',
   			'color-3': 'hsl(var(--color-3))',
   			'color-4': 'hsl(var(--color-4))',
-  			'color-5': 'hsl(var(--color-5))'
+  			'color-5': 'hsl(var(--color-5))',
+			'navKaRangBirangaChoda': 'rgba(0, 0, 0, 0.5)'
   		},
   		backgroundImage: {
   			'gradient-custom': 'linear-gradient(259deg, #EE2A70 27.19%, #881840 96.05%)'

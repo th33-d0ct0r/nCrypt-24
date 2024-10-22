@@ -6,6 +6,7 @@ import { PacmanLoader } from "react-spinners";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { RainbowButton } from "@/components/rainbow-button";
+import FadedNav from "@/components/FadedNav";
 
 interface MongoUser {
   email: string;
@@ -117,8 +118,11 @@ const MapView = () => {
     scrollToPosition();
     setMarkerLoaded(true);
   }
+  function scrollToLeft() {
+    document.getElementById('mainContainer')!.scrollLeft = 0
+  }
   return (
-    <div>
+    <div className="relative w-[100vw] h-[100vh] overflow-x-hidden" id="mainContainer" onLoad={() => scrollToLeft()}>
       <TopNav />
       <div
         className="w-[100vw] overflow-auto rounded-[1.25vw] h-[50vh] animate-fadeIn"
@@ -169,12 +173,12 @@ const MapView = () => {
       <div className="w-[85vw] ml-[7.5vw] mt-[7.5vw]">
         <p className="text-[#777] text-[3vw]">Find some places to eat</p>
       </div>
-      <img src='/test.png' className='ml-[7.5vw] mt-[2vw]'></img>
+      <img src='/food.png' className='ml-[7.5vw] mt-[2vw] w-[92.5vw]'></img>
       <div className="w-[85vw] ml-[7.5vw] mt-[7.5vw]">
         <p className="text-[#777] text-[3vw]">Fun places around you</p>
       </div>
-      <img src='/test.png' className='ml-[7.5vw] mt-[2vw] mb-[20vh]'></img>
-      <div className="bg-gradient-to-t from-black to-transparent h-[20vh] fixed bottom-0 left-0 w-[100vw]"></div>
+      <img src='/places.png' className='ml-[7.5vw] mt-[2vw] w-[92.5vw] mb-[20vh]'></img>
+      <FadedNav />
     </div>
   );
 };
