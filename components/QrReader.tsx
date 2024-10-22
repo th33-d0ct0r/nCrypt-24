@@ -2,7 +2,11 @@
 import { useEffect, useRef, useState } from "react";
 import QrScanner from "qr-scanner";
 
-const QrReader = () => {
+interface QrReaderProps {
+  classes?: string;
+}
+
+const QrReader = ( props: QrReaderProps ) => {
   const scanner = useRef<QrScanner>();
   const videoEl = useRef<HTMLVideoElement>(null);
   const qrBoxEl = useRef<HTMLDivElement>(null);
@@ -56,12 +60,16 @@ const QrReader = () => {
   }
 
   return (
-    <div className="qr-reader">
-      <video ref={videoEl}></video>
-      <div ref={qrBoxEl} className="qr-box">
-      </div>
+    <div className={`qr-reader h-[80vw] ${props.classes}`}>
+      <video ref={videoEl} width={'[80vh]'} className="w-full h-full"></video>
+      <div ref={qrBoxEl} className="qr-box"></div>
 
-      {scannedResult}
+      {scannedResult && (
+        <div className="mt-4 p-2 bg-gray-100 rounded shadow">
+          <p className="text-lg font-semibold">Scanned Result:</p>
+          <p>{scannedResult}</p>
+        </div>
+      )}
     </div>
   );
 };
