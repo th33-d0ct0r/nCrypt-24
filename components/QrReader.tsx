@@ -27,7 +27,7 @@ const QrReader = (props: QrReaderProps) => {
     // setScannedResult(result?.data);
     const scannedData = result?.data;
     if (scannedData && isValidUrl(scannedData)) {
-      window.open(scannedData, "_blank");
+      return window.open(scannedData);
     } else {
       setScannedResult("Your QR code is not a valid URL");
     }
