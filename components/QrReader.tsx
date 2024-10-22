@@ -67,7 +67,7 @@ const QrReader = (props: QrReaderProps) => {
       <div ref={qrBoxEl} className="qr-box"></div>
 
       {scannedResult && (
-        <div className="mt-4 p-2 bg-gray-100 rounded shadow">
+        <div className="mt-4 p-2">
           <p className="text-lg font-semibold">Scanned Result:</p>
           <p>{scannedResult}</p>
         </div>
