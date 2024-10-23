@@ -8,6 +8,11 @@ const userSchema: Schema = new Schema(
         email: reqString,
         clerkId: reqString,
         schoolId: reqString,
+        money: {
+            type: Number,
+            default: 0,
+            required: true
+        }
     },
     { timestamps: true }
 );
