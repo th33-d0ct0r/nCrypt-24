@@ -10,7 +10,6 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import "notyf/notyf.min.css";
 import { Notyf } from "notyf";
-import { Metadata } from "next";
 
 interface MongoUser {
   email: string;
