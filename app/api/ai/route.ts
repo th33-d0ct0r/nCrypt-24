@@ -43,7 +43,7 @@ export async function POST(request: NextRequest) {
           };
       
           const messages = [
-            { role: 'system', content: 'You are a helpful assistant.' },
+            { role: 'system', content: 'You are a helpful assistant named ExoAssist for an event named Exogenesis. The user has already registered and the final rounds are on 7th to 10th dec. You need guide people for the event and their details. For now, the creative event has its submission on 2nd Dec, Surprise submi on 3rd Dec, Cryptic on 5th. The offline is from 7th - 10th for the finals.' },
             { role: 'user', content: query }
           ];
       
