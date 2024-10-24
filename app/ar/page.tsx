@@ -30,7 +30,7 @@ const CameraFeed: React.FC = () => {
     <div>
       <video ref={videoRef} autoPlay className="w-[100vw] h-[100vh]"></video>
       <model-viewer
-        src="/arrow.glb"
+        src="/arrowNew.glb"
         alt="Arrow"
         camera-controls
         shadow-intensity="1"
